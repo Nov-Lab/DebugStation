@@ -1,89 +1,89 @@
-# DebugStation �A�v���P�[�V����
+﻿# DebugStation アプリケーション
 
-�f�o�b�O�x���p Windows �A�v���P�[�V�����ł��B
+デバッグ支援用 Windows アプリケーションです。
 
-NovLab.Base �N���X���C�u�����ƕ��p���܂��B
-
-
-# �����
-
-- Windows 8.1�ȍ~
-- .NET Framework 4.0 �ȍ~�A�܂��͌݊����̂��� .NET ����
-
-### �f�o�b�O�Ώۃv���O�������̕K�v�v��
-
-- [NovLab.Base](https://github.com/Nov-Lab/NovLab.Base) �N���X���C�u����
+NovLab.Base クラスライブラリと併用します。
 
 
-# ����
+# 動作環境
 
-- `Debug` �N���X�ɂ��f�o�b�O�o�͂�A`Trace` �N���X�ɂ��g���[�X�o�͂��A�f�o�b�O�Ώۃv���O��������󂯎���ĕ\�����邱�Ƃ��ł��܂��B
-- �A�g���ē��삷�镡���v���Z�X����̏o�͓��e���ЂƂ܂Ƃ߂ɘ��Ղ��邱�Ƃ��ł��܂��B
-- `NLDebug` �N���X��ʂ����f�o�b�O�x���@�\�𗘗p���邱�Ƃ��ł��܂��B
+- Windows 8.1以降
+- .NET Framework 4.0 以降、または互換性のある .NET 実装
+
+### デバッグ対象プログラム側の必要要件
+
+- [NovLab.Base](https://github.com/Nov-Lab/NovLab.Base) クラスライブラリ
 
 
-# �ˑ����|�W�g��
+# 特長
 
-- [NovLab.Base](https://github.com/Nov-Lab/NovLab.Base) �N���X���C�u����
-- [NovLab.Windows.Forms](https://github.com/Nov-Lab/NovLab.Windows.Forms) �N���X���C�u����
+- `Debug` クラスによるデバッグ出力や、`Trace` クラスによるトレース出力を、デバッグ対象プログラムから受け取って表示することができます。
+- 連携して動作する複数プロセスからの出力内容をひとまとめに俯瞰することができます。
+- `NLDebug` クラスを通じたデバッグ支援機能を利用することができます。
 
-### ���[�J�����|�W�g���ɂ�����t�H���_�[�z�u�ɂ���
 
-�{���|�W�g���̃\�����[�V�����ƁA�ˑ����|�W�g���̃\�����[�V�����́A�ȉ��̂悤�ɓ����e�t�H���_�[�̉��֔z�u���Ă��������B
+# 依存リポジトリ
+
+- [NovLab.Base](https://github.com/Nov-Lab/NovLab.Base) クラスライブラリ
+- [NovLab.Windows.Forms](https://github.com/Nov-Lab/NovLab.Windows.Forms) クラスライブラリ
+
+### ローカルリポジトリにおけるフォルダー配置について
+
+本リポジトリのソリューションと、依存リポジトリのソリューションは、以下のように同じ親フォルダーの下へ配置してください。
 ```
-���e�t�H���_�[��
-  �� DebugStation �\�����[�V����
-  �� NovLab.Base �\�����[�V����
-  �� NovLab.Windows.Forms �\�����[�V����
+＜親フォルダー＞
+  ├ DebugStation ソリューション
+  ├ NovLab.Base ソリューション
+  └ NovLab.Windows.Forms ソリューション
 ```
 
 
-# �g����
+# 使い方
 
-- �f�o�b�O�Ώۃv���O�������ňȉ��̑Ή����s���܂��B
-  1. `NovLab.Base` �A�Z���u���ւ̎Q�Ƃ�ǉ����܂��B
-  2. `DebugStationTraceListener` ���g���[�X���X�i�[�ɒǉ����܂��B
+- デバッグ対象プログラム側で以下の対応を行います。
+  1. `NovLab.Base` アセンブリへの参照を追加します。
+  2. `DebugStationTraceListener` をトレースリスナーに追加します。
 
-     �v���O�����̏��������ȂǂɈȉ��̃R�[�h��ǉ����邩�A�A�v���P�[�V�����\���t�@�C�����C�����܂��B
+     プログラムの初期処理などに以下のコードを追加するか、アプリケーション構成ファイルを修正します。
       ```
       using NovLab.DebugStation;
       
       Debug.Listeners.Add(new DebugStationTraceListener());
       ```
 
-- ��L�Ή����s�����̂��ADebugStation �A�v���P�[�V�������N��������ԂŃf�o�b�O�Ώۃv���O���������s����ƁA�f�o�b�O�o�͂�g���[�X�o�͂� DebugStation �ɕ\������܂��B
+- 上記対応を行ったのち、DebugStation アプリケーションを起動した状態でデバッグ対象プログラムを実行すると、デバッグ出力やトレース出力が DebugStation に表示されます。
 
-- `NLDebug` �N���X���g���ƁADebugStation �Ǝ��̃f�o�b�O�x���@�\�𗘗p���邱�Ƃ��ł��܂��B
-
-
-# �t�H���_�[�\��
-
-- `binfile` �F�R���p�C���ς݂̃o�C�i���[�t�@�C���ł��B
-- `DebugStation` �FDebugStation �̃v���W�F�N�g�ł��B
+- `NLDebug` クラスを使うと、DebugStation 独自のデバッグ支援機能を利用することができます。
 
 
-# ���C�Z���X
+# フォルダー構成
 
-�{�\�t�g�E�F�A�́AMIT���C�Z���X�Ɋ�Â��ă��C�Z���X����Ă��܂��B
-
-�������A���ς���ꍇ�́Anamespace �̖��O��ς��ďd���⍬��������邱�Ƃ������������܂��B
-
-
-# �֘A���|�W�g��
-
-- [TestDebugStation](https://github.com/Nov-Lab/TestDebugStation) �F�{�A�v���P�[�V�����̃e�X�g�p�v���W�F�N�g�ł��B
+- `binfile` ：コンパイル済みのバイナリーファイルです。
+- `DebugStation` ：DebugStation のプロジェクトです。
 
 
-# �J����
+# ライセンス
 
-## �J���c�[���ASDK�Ȃ�
+本ソフトウェアは、MITライセンスに基づいてライセンスされています。
+
+ただし、改変する場合は、namespace の名前を変えて重複や混乱を避けることを強く推奨します。
+
+
+# 関連リポジトリ
+
+- [TestDebugStation](https://github.com/Nov-Lab/TestDebugStation) ：本アプリケーションのテスト用プロジェクトです。
+
+
+# 開発環境
+
+## 開発ツール、SDKなど
 - Visual Studio Community 2019
-  - ���[�N���[�h�F.NET �f�X�N�g�b�v�J��
+  - ワークロード：.NET デスクトップ開発
 
-## ����
+## 言語
 - C#
 
 
-# ���̑�
+# その他
 
-Nov-Lab �Ǝ��̋L�q���[���Ɨp��ɂ��Ă� [NovLabRule.md](https://github.com/Nov-Lab/Nov-Lab/NovLabRule.md) ���Q�Ƃ��Ă��������B
+Nov-Lab 独自の記述ルールと用語については [NovLabRule.md](https://github.com/Nov-Lab/Nov-Lab/blob/main/NovLabRule.md) を参照してください。
